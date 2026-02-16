@@ -5,44 +5,45 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace prog2_Chall4_UnitTesting_ChrisFrench0259182_260215
-
-public class Player
-{
-    public int MaxHealth { get; private set; }
-    public int CurrentHealth { get; private set; }
-
-    public int X { get; private set; }
-    public int Y { get; private set; }
-
-    public Player(int maxHealth, int startX, int startY)
+{ 
+    public class Player
     {
-        MaxHealth = maxHealth;
-        CurrentHealth = maxHealth;
-        X = startX;
-        Y = startY;
-    }
+        public int MaxHealth { get; private set; }
+        public int CurrentHealth { get; private set; }
 
-    public void TakeDamage(int amount)
-    {
-        CurrentHealth -= amount;
-        if (CurrentHealth < 0)
+        public int X { get; private set; }
+        public int Y { get; private set; }
+
+        public Player(int maxHealth, int startX, int startY)
         {
-            CurrentHealth = 0;
+            MaxHealth = maxHealth;
+            CurrentHealth = maxHealth;
+            X = startX;
+            Y = startY;
         }
-    }
 
-    public void Heal(int amount)
-    {
-        CurrentHealth += amount;
-        if (CurrentHealth > MaxHealth)
+        public void TakeDamage(int amount)
         {
-            CurrentHealth = MaxHealth;
+            CurrentHealth -= amount;
+            if (CurrentHealth < 0)
+            {
+                CurrentHealth = 0;
+            }
         }
-    }
 
-    public void Move(int deltaX, int deltaY)
-    {
-        X += deltaX;
-        Y += deltaY;
-    }
+        public void Heal(int amount)
+        {
+            CurrentHealth += amount;
+            if (CurrentHealth > MaxHealth)
+            {
+                CurrentHealth = MaxHealth;
+            }
+        }
+
+        public void Move(int deltaX, int deltaY)
+        {
+            X += deltaX;
+            Y += deltaY;
+        }
+    } 
 }

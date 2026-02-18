@@ -1,0 +1,141 @@
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using prog2_Chall4_UnitTesting_ChrisFrench0259182_260215;
+using System;
+using System.Net.NetworkInformation;
+
+namespace Game.Tests
+{
+    [TestClass]
+    public class UnitTest1
+    {
+
+        #region// Damage  test
+        [TestMethod]
+        public void TakeDamage_ReducesHealth()
+        {
+            Player player = new Player(100, 0, 0);// sets starting health
+            //Console.WriteLine($"Player's Starting health is {player.CurrentHealth}");     
+
+
+            player.TakeDamage(25);//apply damage to player
+           // Console.WriteLine($"Player takes 25 points of damage");
+
+            Assert.AreEqual(75, player.CurrentHealth);// checks  to verify the current value  refflects the  damage applied
+          //  Console.WriteLine($"player's current health is {player.CurrentHealth}");
+           // Console.ReadKey(true);
+        }
+
+        [TestMethod]
+        public void TakeDamage_HealthDoesNotGoBelowZero()
+        {
+            
+            Player player = new Player(100, 0, 0);// sets default values
+                      
+            player.TakeDamage(150);// applied overrun damage
+         
+            Assert.AreEqual(0, player.CurrentHealth); // verifies health only drops to 0 not neg
+        }
+
+        [TestMethod]
+        public void TakeDamage_TakingZeroDamageDoesNothing()
+        {
+            Player player = new Player(100, 0, 0); //sets default 
+
+            player.TakeDamage(0);//applies 0 dmg 
+
+            Assert.AreEqual(100, player.CurrentHealth);// verifies no change
+        }
+        #endregion
+
+        #region// healing test
+        [TestMethod]
+        public void Heal_IncreasesHealth()
+        {
+            Player player = new Player(100, 0, 0);// set default
+            player.TakeDamage(50);// apply damage to player
+
+            player.Heal(20);// applies healing
+
+            Assert.AreEqual(70, player.CurrentHealth);// checks to see if health  is default,  minus damagevalue,  plus healing value
+
+
+        }
+
+        [TestMethod]
+        public void Heal_HealthDoesNotExceedMaxHealth()
+        {
+           
+            Player player = new Player(100, 0, 0);// sets default health to player
+            player.TakeDamage(10); // does damage to player
+
+            player.Heal(50);// applies an over heal ammount 
+
+            Assert.AreEqual(100, player.CurrentHealth);// checks to verify health increase stops at default value
+        }
+
+        [TestMethod]
+        public void Heal_HealingAtFullHealthChangesNothing()
+        {
+            
+            Player player = new Player(100, 0, 0);// sets default valuie health
+
+           player.Heal(10); //applies healing while at default health with no damage  taken.
+
+            Assert.AreEqual(100, player.CurrentHealth);// verifies that the  healing does not change max default value  when no  damage was applied
+        }
+
+
+        #endregion
+
+
+        #region// movement test
+
+
+        [TestMethod]
+        public void Move_PlayerMovesCorrectlyOnXAndY()
+        {
+          Player player = new Player(100, 0, 0);// sets default location  coordinates
+
+            player.Move(10, 20);//  applies an x and y translate to mopve player 
+
+          
+            Assert.AreEqual(10, player.X);// verifies new x location is the same as default set plus translated  value
+            Assert.AreEqual(20, player.Y);//  verifies that y  vector is currentlyt default plus the applied translate value
+
+
+        }
+
+        [TestMethod]
+        public void Move_MovingByZeroDoesNothing()
+        {
+           
+            Player player = new Player(100, 5, 5); // sets default start location for the player
+                       
+             player.Move(0, 0);// applies  a neutral move command  resulting in no movement 
+
+            Assert.AreEqual(5, player.X);// verifies x  coord is same as set starting 
+            Assert.AreEqual(5, player.Y);// verifies y coor is equal to set  starting
+        }
+
+        [TestMethod]
+        public void Move_NegativeMovementWorks()
+        {
+           
+            Player player = new Player(100, 10, 10);// sets start position of player
+
+            player.Move(-15, -5); // sets new location value via movement
+
+            Assert.AreEqual(-5, player.X);// verifies  the new x coordinate
+            Assert.AreEqual(5, player.Y);// verifies new y coordinate of  player
+        }
+
+        #endregion
+
+
+
+
+
+
+
+    }
+}
